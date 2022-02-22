@@ -69,10 +69,13 @@ public class GuessAWord {
                 "with guessing will appear as a series of dashes. Each dash will\n" +
                 "correspond with one letter in that word.\n" +
                 "" +
-                "\nType in a letter. If the letter is present, the dash that letter corresponds\n" +
-                "with will disappear and the letter will take its place.");
-
-
+                "\nFor example, if the secret word was 'Apple' you would see _ _ _ _ _\n" +
+                "at the beginning of the game.\n" +
+                "\n" +
+                "If you then selected 'p' as your first letter, after you pressed entered\n" +
+                "you would see _ p p _ _ on your screen.\n" +
+                "\n" +
+                "Let's begin!");
     }
 
     private static void game(String selectedWord){
