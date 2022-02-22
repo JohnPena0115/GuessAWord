@@ -5,15 +5,35 @@ public class GuessAWord {
 
     public static void main(String[] args) {
 
+        mainMenu();
+
 
 
     }
 
-    private static void welcome() {
+
+
+    private static void mainMenu() {
 
         String word = getWord();
 
+        System.out.println("\nMain Menu");
+        System.out.println("----------");
 
+        int userSelection = UI.readInt("Welcome to Word Guess.\nWould you like to ...\n\n" +
+                "1) Play\n" +
+                "2) Exit\n" , 1, 2 );
+
+        switch(userSelection) {
+
+            case 1:
+                game(word);
+                break;
+
+            case 2:
+                 System.exit(0);
+
+        }
 
     }
 
@@ -35,11 +55,16 @@ public class GuessAWord {
         wordList[12] = "Instantiate";
         wordList[13] = "Inheritance";
 
-        int selectedIndex = (int)(Math.random() * wordList.length);
+        int randomIndex = (int)(Math.random() * wordList.length);
 
-        String selectedWord = wordList[selectedIndex];
+        String selectedWord = wordList[randomIndex];
 
         return selectedWord;
+
+    }
+
+    private static void game(String selectedWord){
+
 
     }
 

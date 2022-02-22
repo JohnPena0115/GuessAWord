@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="CarRentalCLI">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../CarRentalCLI" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/../CarRentalCLI/src" />
+    </SOURCES>
+  </library>
+</component>
