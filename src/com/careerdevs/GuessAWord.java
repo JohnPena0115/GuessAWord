@@ -1,5 +1,7 @@
 package com.careerdevs;
 
+import java.util.concurrent.TimeUnit;
+
 
 public class GuessAWord {
 
@@ -74,8 +76,23 @@ public class GuessAWord {
                 "\n" +
                 "If you then selected 'p' as your first letter, after you pressed entered\n" +
                 "you would see _ p p _ _ on your screen.\n" +
-                "\n" +
-                "Let's begin!");
+                "\n");
+
+                wait(10);
+
+        System.out.println("Let's begin!");
+    }
+
+    public static void wait(int seconds) {
+
+        try{
+            TimeUnit.SECONDS.sleep(seconds);
+
+        } catch (InterruptedException ex) {
+
+            Thread.currentThread().interrupt();
+        }
+
     }
 
     private static void game(String selectedWord){
