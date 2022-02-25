@@ -39,58 +39,40 @@ public class UI {
 
         String preValidatedChar = read.nextLine().trim().toLowerCase();
 
-        //Filters for null input
 
         while (true) {
 
-            if (preValidatedChar.length() > 0) {
-
-                break;
-
-            } else {
-
-                System.out.println("Try again. You many have pressed the enter button without typing in a letter.");
-
-            }
-        }
-
-        //Filters for input that consists of more than one character
-        while (true) {
-
-            if (preValidatedChar.length() > 1) {
-
-                System.out.println("Please type in only one character.");
-
-            } else {
-
-                break;
-            }
-        }
-
-        //Filters non-alphabetic characters
-        char potentialLetter = preValidatedChar.charAt(0);
-
-        while (true) {
-
-            if (!(potentialLetter >= 'a' &&  potentialLetter <= 'z')){
-
-                System.out.print("Please only type in a letter:");
-
+            //Filters for null input
+            if (preValidatedChar.length() == 0) {
+                System.out.println("\nYou many have pressed the enter button without typing in a letter.");
+                System.out.print("Try again: ");
                 preValidatedChar = read.nextLine().trim().toLowerCase();
-
+                System.out.println("");
                 continue;
-
-
-            } else {
-
-                break;
             }
+
+            //Filters for input that consists of more than one character
+            if (preValidatedChar.length() > 1) {
+                System.out.print("\nPlease type in only one character: ");
+                preValidatedChar = read.nextLine().trim().toLowerCase();
+                System.out.println("");
+                continue;
+            }
+
+
+            //Filters non-alphabetic characters
+            char potentialLetter = preValidatedChar.charAt(0);
+
+            if (!(potentialLetter >= 'a' &&  potentialLetter <= 'z')) {
+                System.out.print("Please only type in a letter:");
+                preValidatedChar = read.nextLine().trim().toLowerCase();
+                System.out.println("");
+                continue;
+            }
+
+            char validatedLetter = potentialLetter;
+            return validatedLetter;
+
         }
-
-        char validatedLetter = potentialLetter;
-
-        return validatedLetter;
-
     }
-
 }
