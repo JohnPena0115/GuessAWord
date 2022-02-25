@@ -78,9 +78,13 @@ public class GuessAWord {
                 "you would see _ p p _ _ on your screen.\n" +
                 "\n");
 
-                wait(10);
+//                wait(15);
 
         System.out.println("Let's begin!");
+
+//        wait(2);
+
+        game(word);
     }
 
     public static void wait(int seconds) {
@@ -96,6 +100,12 @@ public class GuessAWord {
     }
 
     private static void game(String selectedWord){
+
+        //testing UI.confirmAlphabeticChar
+
+        char letterTyped = UI.confirmAlphabeticChar("Pick a letter: ");
+
+        System.out.println(letterTyped);
 
 
     }

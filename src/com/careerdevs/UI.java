@@ -1,5 +1,6 @@
 package com.careerdevs;
 
+import java.util.Locale;
 import java.util.Scanner;
 
 public class UI {
@@ -34,11 +35,12 @@ public class UI {
 
     public static char confirmAlphabeticChar(String question) {
 
-        System.out.println("\n" + question);
+        System.out.print("\n" + question);
 
-        String preValidatedChar = read.nextLine().trim();
+        String preValidatedChar = read.nextLine().trim().toLowerCase();
 
         //Filters for null input
+
         while (true) {
 
             if (preValidatedChar.length() > 0) {
@@ -52,7 +54,7 @@ public class UI {
             }
         }
 
-        //Filters for non-char input exclusive of null
+        //Filters for input that consists of more than one character
         while (true) {
 
             if (preValidatedChar.length() > 1) {
@@ -65,10 +67,29 @@ public class UI {
             }
         }
 
+        //Filters non-alphabetic characters
+        char potentialLetter = preValidatedChar.charAt(0);
+
         while (true) {
 
+            if (!(potentialLetter >= 'a' &&  potentialLetter <= 'z')){
 
+                System.out.print("Please only type in a letter:");
+
+                preValidatedChar = read.nextLine().trim().toLowerCase();
+
+                continue;
+
+
+            } else {
+
+                break;
+            }
         }
+
+        char validatedLetter = potentialLetter;
+
+        return validatedLetter;
 
     }
 
