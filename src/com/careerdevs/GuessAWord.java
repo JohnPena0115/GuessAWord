@@ -119,6 +119,21 @@ public class GuessAWord {
         */
 
 
+        //Also consider adding a play again option regardless of
+        //whether they successfully guessed the word or not
+
+        //If they select play again, show a streak of their successfully
+        //guessed words. If they have a streak and fail to guess the word
+        //start the game over again
+
+        //If you have the time add a feature where you have a bank of words
+        //but not all are eligible to be selected to add variety in case
+        //they have a broken streak
+
+        //Also have them pick the number of words they want to guess at the
+        //beginning of each game
+
+
 
     }
 
