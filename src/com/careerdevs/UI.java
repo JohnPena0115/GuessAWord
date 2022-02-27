@@ -60,7 +60,7 @@ public class UI {
             }
 
 
-            //Filters non-alphabetic characters
+            //Filters for non-alphabetic characters
             char potentialLetter = preValidatedChar.charAt(0);
 
             if (!(potentialLetter >= 'a' &&  potentialLetter <= 'z')) {

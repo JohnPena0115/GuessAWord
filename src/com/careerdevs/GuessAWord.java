@@ -14,7 +14,7 @@ public class GuessAWord {
     }
 
 
-
+    //mainMenu either calls instructions or ends the program
     private static void mainMenu() {
 
         System.out.println("\nMain Menu");
@@ -63,6 +63,7 @@ public class GuessAWord {
 
     }
 
+    //Introduces user to game layout
     private static void instructions() {
 
         String word = getWord();
@@ -87,6 +88,7 @@ public class GuessAWord {
         game(word);
     }
 
+    //Pauses execution of the program to allow user to read instructions
     public static void wait(int seconds) {
 
         try{
@@ -102,10 +104,20 @@ public class GuessAWord {
     private static void game(String selectedWord){
 
         //testing UI.confirmAlphabeticChar
-
         char letterTyped = UI.confirmAlphabeticChar("Pick a letter: ");
-
         System.out.println(letterTyped);
+
+
+        /*
+        *
+        * Next steps
+        *   Consider making each letter of the selected word
+        *   an object and giving it a boolean field ... you could
+        *   use this field to simplify the decision to eiter
+        *   display the letter or hide it ...
+        *
+        */
+
 
 
     }
