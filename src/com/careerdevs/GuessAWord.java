@@ -103,35 +103,12 @@ public class GuessAWord {
 
     private static void game(String selectedWord){
 
-        //testing UI.confirmAlphabeticChar
-        char letterTyped = UI.confirmAlphabeticChar("Pick a letter: ");
-        System.out.println(letterTyped);
+
+//        char letterTyped = UI.confirmAlphabeticChar("Pick a letter: ");
+//        System.out.println(letterTyped);
 
 
-        /*
-        *
-        * Next steps
-        *   Consider making each letter of the selected word
-        *   an object and giving it a boolean field ... you could
-        *   use this field to simplify the decision to eiter
-        *   display the letter or hide it ...
-        *
-        */
 
-
-        //Also consider adding a play again option regardless of
-        //whether they successfully guessed the word or not
-
-        //If they select play again, show a streak of their successfully
-        //guessed words. If they have a streak and fail to guess the word
-        //start the game over again
-
-        //If you have the time add a feature where you have a bank of words
-        //but not all are eligible to be selected to add variety in case
-        //they have a broken streak
-
-        //Also have them pick the number of words they want to guess at the
-        //beginning of each game
 
 
 
