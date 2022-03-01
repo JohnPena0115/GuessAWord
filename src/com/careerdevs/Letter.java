@@ -11,7 +11,7 @@ public class Letter {
 
     }
 
-    public char getLetter() {
+    public char getValue() {
 
         return letter;
     }

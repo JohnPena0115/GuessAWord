@@ -13,20 +13,7 @@ public class GuessAWord {
 //        mainMenu();
 
 
-        //Testing out using a HashSet to get all the unique letters in a word.
-        //Need this information to initialize my minimalGuesses integer variable
-        //down below.
-        String test = "Character";
 
-        Set<Character> uniqueLetters = new HashSet<Character>();
-
-        for(int index = 0; index < test.length(); index++) {
-
-            uniqueLetters.add(test.charAt(index));
-        }
-
-        System.out.println(uniqueLetters.size()); //=> printed 7
-        System.out.println(test.length()); // => printed 9
 
 
 
@@ -124,7 +111,7 @@ public class GuessAWord {
 
         //Establishing initial state of game
         //Creating an array list of Letter objects with char and boolean
-        //fields of letter and hidden respectively
+        //fields of "letter" and "hidden" respectively
         ArrayList<Letter> letters = new ArrayList<>();
         Set<Character> uniqueLetters = new HashSet<Character>();
 
@@ -140,47 +127,39 @@ public class GuessAWord {
         //If a non-alphabetic letter is typed, reprompts user for a letter
         char letterGuessed = UI.confirmAlphabeticChar("Pick a letter: ");
 
-        boolean allLettersGuessed = false;
-
-        int numberOfGuesses = 0;
-//        int minimalGuesses =
-
-
-        first:
-        //Runs until all the objects in letters store a boolean value of true in their
-        //respective hidden field
-        while (!allLettersGuessed) {
+        int correctGuesses = 0;
+        int necessaryGuesses = uniqueLetters.size();
+        int potentialDuplicate = 0;
 
 
-            second:
-            //Iterates through letters looking for a false value in each object's
-            //hidden field. Ends game if no boolean false value is found.
-            for (int index = 0; index < letters.size(); index++){
+        //Runs until the number of correct guesses equals the number of necessary guesses
+        //to win the game
+        while ( correctGuesses < necessaryGuesses) {
 
-                if (letters.get(index).getHidden() == false) {
-                    break;
-                } else {
-                    allLettersGuessed = true;
-                    continue first;
-                }
-            }
+
+
 
             //Iterates through the letters array list looking for a match between
-            //the char field in each object and the letter typed
-
-            third:
+            //the char field in each object and the letter typed in by user
             for (int index = 0; index < letters.size(); index++){
 
-                Letter wordLetter = letters.get(index);
+                Letter currentLetter = letters.get(index);
 
-                if (letterGuessed == wordLetter.getLetter()) {
+                if (letterGuessed == currentLetter.getValue()) {
 
-                    wordLetter.setDisplayed(true);
-
+                    currentLetter.setDisplayed(true);
+                    potentialDuplicate++;
                 }
-
             }
 
+            //Insures that if a user picks a letter that is duplicated in a word,
+            //correctGuesses is only incremented by one.
+            if (potentialDuplicate > 1) {
+                correctGuesses = correctGuesses + (potentialDuplicate - (potentialDuplicate -1));
+            } else {
+                correctGuesses++;
+            }
+            potentialDuplicate = 0;
 
 
         }
