@@ -1,5 +1,8 @@
 package com.careerdevs;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 
@@ -7,7 +10,23 @@ public class GuessAWord {
 
     public static void main(String[] args) {
 
-        mainMenu();
+//        mainMenu();
+
+
+        //Testing out using a HashSet to get all the unique letters in a word.
+        //Need this information to initialize my minimalGuesses integer variable
+        //down below.
+        String test = "Character";
+
+        Set<Character> uniqueLetters = new HashSet<Character>();
+
+        for(int index = 0; index < test.length(); index++) {
+
+            uniqueLetters.add(test.charAt(index));
+        }
+
+        System.out.println(uniqueLetters.size()); //=> printed 7
+        System.out.println(test.length()); // => printed 9
 
 
 
@@ -57,7 +76,7 @@ public class GuessAWord {
 
         int randomIndex = (int)(Math.random() * wordList.length);
 
-        String selectedWord = wordList[randomIndex];
+        String selectedWord = wordList[randomIndex].toLowerCase();
 
         return selectedWord;
 
@@ -81,7 +100,7 @@ public class GuessAWord {
 
 //                wait(15);
 
-        System.out.println("Let's begin!");
+        System.out.println("Starting up the game!");
 
 //        wait(2);
 
@@ -103,9 +122,71 @@ public class GuessAWord {
 
     private static void game(String selectedWord){
 
+        //Establishing initial state of game
+        //Creating an array list of Letter objects with char and boolean
+        //fields of letter and hidden respectively
+        ArrayList<Letter> letters = new ArrayList<>();
+        Set<Character> uniqueLetters = new HashSet<Character>();
 
-//        char letterTyped = UI.confirmAlphabeticChar("Pick a letter: ");
-//        System.out.println(letterTyped);
+        for(int index = 0; index < selectedWord.length(); index++) {
+
+            Letter hiddenLetter = new Letter(selectedWord.charAt(index));
+            letters.add(hiddenLetter);
+
+            uniqueLetters.add(selectedWord.charAt(index));
+        }
+
+        //Asks the user for a letter and verifies that a letter was indeed inputted
+        //If a non-alphabetic letter is typed, reprompts user for a letter
+        char letterGuessed = UI.confirmAlphabeticChar("Pick a letter: ");
+
+        boolean allLettersGuessed = false;
+
+        int numberOfGuesses = 0;
+//        int minimalGuesses =
+
+
+        first:
+        //Runs until all the objects in letters store a boolean value of true in their
+        //respective hidden field
+        while (!allLettersGuessed) {
+
+
+            second:
+            //Iterates through letters looking for a false value in each object's
+            //hidden field. Ends game if no boolean false value is found.
+            for (int index = 0; index < letters.size(); index++){
+
+                if (letters.get(index).getHidden() == false) {
+                    break;
+                } else {
+                    allLettersGuessed = true;
+                    continue first;
+                }
+            }
+
+            //Iterates through the letters array list looking for a match between
+            //the char field in each object and the letter typed
+
+            third:
+            for (int index = 0; index < letters.size(); index++){
+
+                Letter wordLetter = letters.get(index);
+
+                if (letterGuessed == wordLetter.getLetter()) {
+
+                    wordLetter.setDisplayed(true);
+
+                }
+
+            }
+
+
+
+        }
+
+
+
 
 
 

@@ -22,7 +22,7 @@ public class Letter {
 
     }
 
-    public boolean isHidden() {
+    public boolean getHidden() {
 
         return hidden;
     }
