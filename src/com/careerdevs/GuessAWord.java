@@ -107,11 +107,11 @@ public class GuessAWord {
 
     }
 
+    //Currently, a really long method. Try to see if you
+    //can parse any of it out.
     private static void game(String selectedWord){
 
-        //Establishing initial state of game
-        //Creating an array list of Letter objects with char and boolean
-        //fields of "letter" and "hidden" respectively
+        //Creating the necessary component for the initial game state
         ArrayList<Letter> letters = new ArrayList<>();
         Set<Character> uniqueLetters = new HashSet<Character>();
 
@@ -123,55 +123,53 @@ public class GuessAWord {
             uniqueLetters.add(selectedWord.charAt(index));
         }
 
+        int minimalNumberOfGuesses = uniqueLetters.size();
+
+        //Displays the first frame of the game
+        GameDisplay.initialFrame(letters, minimalNumberOfGuesses);
+
         //Asks the user for a letter and verifies that a letter was indeed inputted
         //If a non-alphabetic letter is typed, reprompts user for a letter
-        char letterGuessed = UI.confirmAlphabeticChar("Pick a letter: ");
+        char letterGuessed = UI.confirmAlphabeticChar("Pick your first letter: ");
 
         int correctGuesses = 0;
-        int necessaryGuesses = uniqueLetters.size();
-        int potentialDuplicate = 0;
+        int potentialDuplicateLetters = 0;
 
 
         //Runs until the number of correct guesses equals the number of necessary guesses
         //to win the game
-        while ( correctGuesses < necessaryGuesses) {
+        while ( correctGuesses < minimalNumberOfGuesses) {
 
 
+            //This still needs to be fleshed out but this is the gist of it.
+            //You still haven't figured out how to implement each frame.
+            if (potentialDuplicateLetters == 0) {
 
+                System.out.println("Sorry, the letter " + letterGuessed + " was not found.");
 
-            //Iterates through the letters array list looking for a match between
-            //the char field in each object and the letter typed in by user
-            for (int index = 0; index < letters.size(); index++){
+                //here is where you might call the subsequent state method ... the question
+                //becomes what variable do you put it in and do you put letterGuessed in
+                //subsequent state ... You have to ... they'd have to be in the same frame ...
+                //so subsequent state would have to return a char ...
 
-                Letter currentLetter = letters.get(index);
-
-                if (letterGuessed == currentLetter.getValue()) {
-
-                    currentLetter.setDisplayed(true);
-                    potentialDuplicate++;
-                }
+                letterGuessed = UI.confirmAlphabeticChar("Please pick another letter: ");
+                continue;
             }
 
             //Insures that if a user picks a letter that is duplicated in a word,
             //correctGuesses is only incremented by one.
-            if (potentialDuplicate > 1) {
-                correctGuesses = correctGuesses + (potentialDuplicate - (potentialDuplicate -1));
+            if (potentialDuplicateLetters > 1) {
+                correctGuesses = correctGuesses + (potentialDuplicateLetters - (potentialDuplicateLetters -1));
             } else {
                 correctGuesses++;
             }
-            potentialDuplicate = 0;
+            potentialDuplicateLetters = 0;
+
+            System.out.println("Congratulations, the letter " + letterGuessed + " was found.");
+            letterGuessed = UI.confirmAlphabeticChar("Pick again: ");
 
 
         }
-
-
-
-
-
-
-
-
-
     }
 
 }

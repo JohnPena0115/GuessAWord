@@ -1,11 +1,10 @@
 package com.careerdevs;
 
-import java.util.Locale;
 import java.util.Scanner;
 
 public class UI {
 
-    private static Scanner read = new Scanner(System.in);
+    private static final Scanner read = new Scanner(System.in);
 
     public static int readInt(String question, int min, int max) {
 
@@ -71,6 +70,7 @@ public class UI {
             }
 
             char validatedLetter = potentialLetter;
+
             return validatedLetter;
 
         }
