@@ -133,17 +133,28 @@ public class GuessAWord {
         char letterGuessed = UI.confirmAlphabeticChar("Pick your first letter: ");
 
         int correctGuesses = 0;
-        int potentialDuplicateLetters = 0;
+        int letterFrequency = 0;
 
 
         //Runs until the number of correct guesses equals the number of necessary guesses
         //to win the game
         while ( correctGuesses < minimalNumberOfGuesses) {
 
+            for (int letter = 0; letter < letters.size(); letter++){
+
+                boolean isDisplayed = letters.get(letter).getIsDisplayed();
+
+                if ( !isDisplayed && letterGuessed == letters.get(letter).getValue()) {
+
+                    letters.get(letter).setIsDisplayed(true);
+                    letterFrequency++;
+                }
+            }
+
 
             //This still needs to be fleshed out but this is the gist of it.
             //You still haven't figured out how to implement each frame.
-            if (potentialDuplicateLetters == 0) {
+            if (letterFrequency == 0) {
 
                 System.out.println("Sorry, the letter " + letterGuessed + " was not found.");
 
@@ -158,12 +169,12 @@ public class GuessAWord {
 
             //Insures that if a user picks a letter that is duplicated in a word,
             //correctGuesses is only incremented by one.
-            if (potentialDuplicateLetters > 1) {
-                correctGuesses = correctGuesses + (potentialDuplicateLetters - (potentialDuplicateLetters -1));
+            if (letterFrequency > 1) {
+                correctGuesses = correctGuesses + (letterFrequency - (letterFrequency -1));
             } else {
                 correctGuesses++;
             }
-            potentialDuplicateLetters = 0;
+            letterFrequency = 0;
 
             System.out.println("Congratulations, the letter " + letterGuessed + " was found.");
             letterGuessed = UI.confirmAlphabeticChar("Pick again: ");

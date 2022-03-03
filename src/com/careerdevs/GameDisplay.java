@@ -27,8 +27,5 @@ public class GameDisplay {
 
     }
 
-    public static void message (char letterGuessed){
 
-
-    }
 }

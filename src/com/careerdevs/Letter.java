@@ -3,7 +3,7 @@ package com.careerdevs;
 public class Letter {
 
     private char letter;
-    private boolean hidden;
+    private boolean isDisplayed;
 
     Letter(char letter) {
 
@@ -22,14 +22,14 @@ public class Letter {
 
     }
 
-    public boolean getHidden() {
+    public boolean getIsDisplayed() {
 
-        return hidden;
+        return isDisplayed;
     }
 
-    public void setDisplayed(boolean displayed) {
+    public void setIsDisplayed(boolean displayed) {
 
-        this.hidden = displayed;
+        isDisplayed = displayed;
 
     }
 
