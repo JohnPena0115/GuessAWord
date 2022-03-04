@@ -10,7 +10,7 @@ public class GuessAWord {
 
     public static void main(String[] args) {
 
-//        mainMenu();
+      mainMenu();
 
 
 
@@ -85,11 +85,9 @@ public class GuessAWord {
                 "you would see _ p p _ _ on your screen.\n" +
                 "\n");
 
-//                wait(15);
-
-        System.out.println("Starting up the game!");
-
-//        wait(2);
+        wait(15);
+        System.out.println("Starting up the game!\n");
+        wait(3);
 
         game(word);
     }
@@ -130,7 +128,7 @@ public class GuessAWord {
 
         //Asks the user for a letter and verifies that a letter was indeed inputted
         //If a non-alphabetic letter is typed, reprompts user for a letter
-        char letterGuessed = UI.confirmAlphabeticChar("Pick your first letter: ");
+        char letterGuessed = UI.confirmAlphabeticChar("\nPick your first letter: ");
 
         int correctGuesses = 0;
         int letterFrequency = 0;
@@ -152,31 +150,30 @@ public class GuessAWord {
             }
 
 
-            //This still needs to be fleshed out but this is the gist of it.
-            //You still haven't figured out how to implement each frame.
+            //When an incorrect letter is guessed.
             if (letterFrequency == 0) {
 
-                System.out.println("Sorry, the letter " + letterGuessed + " was not found.");
+                System.out.println("\nSorry, the letter '" + letterGuessed + "' was not found.\n");
+                GameDisplay.currentState(letters, false);
+                letterGuessed = UI.confirmAlphabeticChar("Pick again: ");
 
-                //here is where you might call the subsequent state method ... the question
-                //becomes what variable do you put it in and do you put letterGuessed in
-                //subsequent state ... You have to ... they'd have to be in the same frame ...
-                //so subsequent state would have to return a char ...
-
-                letterGuessed = UI.confirmAlphabeticChar("Please pick another letter: ");
-                continue;
             }
 
+            //When a correct letter is guessed.
             //Insures that if a user picks a letter that is duplicated in a word,
             //correctGuesses is only incremented by one.
             if (letterFrequency > 1) {
                 correctGuesses = correctGuesses + (letterFrequency - (letterFrequency -1));
+                System.out.println("\nCongratulations, the letter " + letterGuessed + " was found.");
+                System.out.println("'" + letterGuessed + "'" + " appears more than once");
             } else {
                 correctGuesses++;
             }
             letterFrequency = 0;
 
-            System.out.println("Congratulations, the letter " + letterGuessed + " was found.");
+            wait(1);
+            System.out.println("\nDisplaying current state ... \n");
+            GameDisplay.currentState(letters, true);
             letterGuessed = UI.confirmAlphabeticChar("Pick again: ");
 
 
