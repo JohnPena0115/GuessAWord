@@ -25,9 +25,7 @@ public class UI {
 
 
             } catch (NumberFormatException e) {
-
                 System.out.print("\nPlease only enter a valid integer: ");
-
             }
         }
     }

@@ -16,6 +16,7 @@ public class Letter {
         return letter;
     }
 
+    //Don't seem to be using this right now *****
     public void setLetter (char letter) {
 
         this.letter = letter;

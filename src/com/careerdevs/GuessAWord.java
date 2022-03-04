@@ -12,15 +12,10 @@ public class GuessAWord {
 
       mainMenu();
 
-
-
-
-
-
     }
 
 
-    //mainMenu either calls instructions or ends the program
+    //mainMenu either calls the instructions() method or ends the program
     private static void mainMenu() {
 
         System.out.println("\nMain Menu");
@@ -37,12 +32,14 @@ public class GuessAWord {
                 break;
 
             case 2:
-                 System.exit(0);
+                System.out.println("Closing down the program ...");
+                wait(2);
+                System.exit(0);
 
         }
-
     }
 
+    //Randomly selects and returns a word from wordList Array
     private static String getWord() {
 
         String[] wordList = new String[14];
@@ -62,37 +59,56 @@ public class GuessAWord {
         wordList[13] = "Inheritance";
 
         int randomIndex = (int)(Math.random() * wordList.length);
-
         String selectedWord = wordList[randomIndex].toLowerCase();
-
         return selectedWord;
 
     }
 
     //Introduces user to game layout
+    //Calls game(word) to start the game
     private static void instructions() {
 
         String word = getWord();
 
+        GameDisplay.printBorder();
+
+        wait(1);
         System.out.println("\nExcellent. At the beginning of the game the word you are tasked\n" +
                 "with guessing will appear as a series of dashes. Each dash will\n" +
-                "correspond with one letter in that word.\n" +
-                "" +
-                "\nFor example, if the secret word was 'Apple' you would see _ _ _ _ _\n" +
-                "at the beginning of the game.\n" +
-                "\n" +
-                "If you then selected 'p' as your first letter, after you pressed entered\n" +
-                "you would see _ p p _ _ on your screen.\n" +
-                "\n");
-
-        wait(15);
-        System.out.println("Starting up the game!\n");
+                "correspond to one letter.\n");
+        wait(8);
+        System.out.println("\nFor example, if the secret word is 'Apple' you will see\n\n");
         wait(3);
+        System.out.println("_ _ _ _ _\n\n");
+        wait(3);
+        System.out.println("at the beginning of the game");
+        wait(3);
+
+        System.out.println("If you then select 'p' as your first letter, you will see\n\n");
+        wait(3);
+        System.out.println("_ p p _ _\n\n");
+        wait(3);
+        System.out.println("on your screen.\n");
+
+
+
+
+
+
+        wait(2);
+        GameDisplay.printBorder();
+        wait(2);
+
+        System.out.println("\n\nLoading game ... \n");
+        wait(2);
+        GameDisplay.printBorder();
+
+        wait(5);
 
         game(word);
     }
 
-    //Pauses execution of the program to allow user to read instructions
+    //Pauses execution of the program
     public static void wait(int seconds) {
 
         try{
@@ -105,14 +121,14 @@ public class GuessAWord {
 
     }
 
-    //Currently, a really long method. Try to see if you
-    //can parse any of it out.
+
     private static void game(String selectedWord){
 
-        //Creating the necessary component for the initial game state
+        //Creating the necessary components for the initial game state
         ArrayList<Letter> letters = new ArrayList<>();
         Set<Character> uniqueLetters = new HashSet<Character>();
 
+        //Populates the letters arraylist and the unique letters hashset
         for(int index = 0; index < selectedWord.length(); index++) {
 
             Letter hiddenLetter = new Letter(selectedWord.charAt(index));
@@ -121,13 +137,15 @@ public class GuessAWord {
             uniqueLetters.add(selectedWord.charAt(index));
         }
 
+        //I wonder if I could make this int final for each
+        //iteration of the game ********
         int minimalNumberOfGuesses = uniqueLetters.size();
 
         //Displays the first frame of the game
         GameDisplay.initialFrame(letters, minimalNumberOfGuesses);
 
         //Asks the user for a letter and verifies that a letter was indeed inputted
-        //If a non-alphabetic letter is typed, reprompts user for a letter
+        //If a non-alphabetic char is typed, reprompts user for an alphabetic char
         char letterGuessed = UI.confirmAlphabeticChar("\nPick your first letter: ");
 
         int correctGuesses = 0;
@@ -138,41 +156,44 @@ public class GuessAWord {
         //to win the game
         while ( correctGuesses < minimalNumberOfGuesses) {
 
+            //Iterates through each object in letters
             for (int letter = 0; letter < letters.size(); letter++){
-
                 boolean isDisplayed = letters.get(letter).getIsDisplayed();
 
                 if ( !isDisplayed && letterGuessed == letters.get(letter).getValue()) {
-
                     letters.get(letter).setIsDisplayed(true);
                     letterFrequency++;
                 }
             }
 
 
-            //When an incorrect letter is guessed.
+            //Sequence for an incorrect guess
             if (letterFrequency == 0) {
 
                 System.out.println("\nSorry, the letter '" + letterGuessed + "' was not found.\n");
                 GameDisplay.currentState(letters, false);
                 letterGuessed = UI.confirmAlphabeticChar("Pick again: ");
+                continue;
 
             }
 
-            //When a correct letter is guessed.
+            //Sequenced for correctly guessed letter
             //Insures that if a user picks a letter that is duplicated in a word,
             //correctGuesses is only incremented by one.
             if (letterFrequency > 1) {
                 correctGuesses = correctGuesses + (letterFrequency - (letterFrequency -1));
-                System.out.println("\nCongratulations, the letter " + letterGuessed + " was found.");
+                System.out.println("\nCongratulations, the letter " + letterGuessed + " was found.\n");
                 System.out.println("'" + letterGuessed + "'" + " appears more than once");
             } else {
                 correctGuesses++;
             }
+
+            //Resets letterFrequency to zero after each user input
             letterFrequency = 0;
 
             wait(1);
-            System.out.println("\nDisplaying current state ... \n");
+            System.out.println("\nUnveiling " + Character.toUpperCase(letterGuessed) + " ...\n");
+            wait(2);
             GameDisplay.currentState(letters, true);
             letterGuessed = UI.confirmAlphabeticChar("Pick again: ");
 
