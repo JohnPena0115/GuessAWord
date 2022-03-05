@@ -1,14 +1,28 @@
 package com.careerdevs;
 
+import java.util.ArrayList;
+
 public class Letter {
 
     private char letter;
     private boolean isDisplayed;
 
+    public static ArrayList<Character> alreadyGuessed = new ArrayList<Character>();
+
     Letter(char letter) {
 
         this.letter = letter;
 
+    }
+
+    public boolean wasCharPreviouslyGuessed (char userInput){
+
+        for (int index = 0; index < alreadyGuessed.size(); index++){
+            if (userInput == alreadyGuessed.get(index)){
+                return true;
+            }
+        }
+        return false;
     }
 
     public char getValue() {
@@ -28,9 +42,10 @@ public class Letter {
         return isDisplayed;
     }
 
-    public void setIsDisplayed(boolean displayed) {
+    public static void setIsDisplayed(Letter correctlyGuessed) {
 
-        isDisplayed = displayed;
+        correctlyGuessed.isDisplayed = true;
+        alreadyGuessed.add(correctlyGuessed.getValue());
 
     }
 

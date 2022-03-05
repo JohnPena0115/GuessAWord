@@ -12,6 +12,8 @@ public class GuessAWord {
 
       mainMenu();
 
+      //Consider renaming GameDisplay "Display Utilities" ...
+
     }
 
 
@@ -21,7 +23,7 @@ public class GuessAWord {
         System.out.println("\nMain Menu");
         System.out.println("----------");
 
-        int userSelection = UI.readInt("Welcome to Word Guess.\nWould you like to ...\n\n" +
+        int userSelection = UI.readInt("Welcome to 'Guess That Word'.\nWould you like to ...\n\n" +
                 "1) Play\n" +
                 "2) Exit\n" , 1, 2 );
 
@@ -40,6 +42,13 @@ public class GuessAWord {
     }
 
     //Randomly selects and returns a word from wordList Array
+    //Remember, eventually you want to have a wordBank array from which *****
+    //wordList is derived ... this will come into play when the user *****
+    //can replay the game *****
+
+    //Consider putting getWord() in the GameDisplay class ... or maybe even *****
+    //create a class for word retrieval ... once you introduce the 3 other *****
+    //word banks it's going to muddy up GuessAWord ... *****
     private static String getWord() {
 
         String[] wordList = new String[14];
@@ -66,6 +75,8 @@ public class GuessAWord {
 
     //Introduces user to game layout
     //Calls game(word) to start the game
+    //When you introduce "Easy", "Java" and "Hard" instructions will *****
+    //get pushed back a step *****
     private static void instructions() {
 
         String word = getWord();
@@ -89,10 +100,6 @@ public class GuessAWord {
         System.out.println("_ p p _ _\n\n");
         wait(3);
         System.out.println("on your screen.\n");
-
-
-
-
 
 
         wait(2);
@@ -128,7 +135,7 @@ public class GuessAWord {
         ArrayList<Letter> letters = new ArrayList<>();
         Set<Character> uniqueLetters = new HashSet<Character>();
 
-        //Populates the letters arraylist and the unique letters hashset
+        //Populates the letters arraylist and the uniqueLetters hashset
         for(int index = 0; index < selectedWord.length(); index++) {
 
             Letter hiddenLetter = new Letter(selectedWord.charAt(index));
@@ -156,12 +163,18 @@ public class GuessAWord {
         //to win the game
         while ( correctGuesses < minimalNumberOfGuesses) {
 
+
+            //YOU WANT TO BUILD A FEATURE THAT TAKES INTO ACCOUNT IF A
+            //LETTER HAS ALREADY BEEN GUESSED ... YOU COULD PROBABLY DO THIS
+            //BY MAKING AN ARRAY FIELD IN THE LETTER CLASS AND HAVING EACH
+            //LETTER OBJECT POPULATE THAT ARRAY WHEN IT'S BOOLEAN isDISPLAYED
+            //IS REASSIGNED A TRUE VALUE
+
             //Iterates through each object in letters
             for (int letter = 0; letter < letters.size(); letter++){
-                boolean isDisplayed = letters.get(letter).getIsDisplayed();
 
-                if ( !isDisplayed && letterGuessed == letters.get(letter).getValue()) {
-                    letters.get(letter).setIsDisplayed(true);
+                if (letterGuessed == letters.get(letter).getValue()) {
+                    Letter.setIsDisplayed(letters.get(letter));
                     letterFrequency++;
                 }
             }
