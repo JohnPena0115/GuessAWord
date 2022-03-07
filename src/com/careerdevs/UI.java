@@ -41,10 +41,10 @@ public class UI {
 
             //Filters for null input
             if (preValidatedChar.length() == 0) {
-                System.out.println("\nYou many have pressed the enter button without typing in a letter.");
-                System.out.print("Try again: ");
+                System.out.println("\nYou many have pressed the enter button without typing in a letter.\n");
+                System.out.print("Please try again: ");
                 preValidatedChar = read.nextLine().trim().toLowerCase();
-                System.out.println("");
+               // System.out.println("");
                 continue;
             }
 
@@ -52,7 +52,7 @@ public class UI {
             if (preValidatedChar.length() > 1) {
                 System.out.print("\nPlease type in only one character: ");
                 preValidatedChar = read.nextLine().trim().toLowerCase();
-                System.out.println("");
+                //System.out.println("");
                 continue;
             }
 
@@ -61,9 +61,9 @@ public class UI {
             char potentialLetter = preValidatedChar.charAt(0);
 
             if (!(potentialLetter >= 'a' &&  potentialLetter <= 'z')) {
-                System.out.print("Please only type in a letter:");
+                System.out.print("\nPlease only type in a letter: ");
                 preValidatedChar = read.nextLine().trim().toLowerCase();
-                System.out.println("");
+                //System.out.println("");
                 continue;
             }
 

@@ -1,13 +1,15 @@
 package com.careerdevs;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Letter {
 
     private char letter;
     private boolean isDisplayed;
 
-    public static ArrayList<Character> alreadyGuessed = new ArrayList<Character>();
+    public static Set<Character> alreadyGuessed = new HashSet<Character>();
 
     Letter(char letter) {
 
@@ -15,13 +17,16 @@ public class Letter {
 
     }
 
-    public boolean wasCharPreviouslyGuessed (char userInput){
+    public static boolean wasCharPreviouslyGuessed(char userInput){
 
-        for (int index = 0; index < alreadyGuessed.size(); index++){
-            if (userInput == alreadyGuessed.get(index)){
+        for (Character letter : alreadyGuessed) {
+
+            if (userInput == letter) {
+
                 return true;
             }
         }
+
         return false;
     }
 

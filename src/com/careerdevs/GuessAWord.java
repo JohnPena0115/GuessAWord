@@ -13,6 +13,13 @@ public class GuessAWord {
       mainMenu();
 
       //Consider renaming GameDisplay "Display Utilities" ...
+        // wait() implemented in seconds seems really jittery
+        // try to implement it in milliseconds to see if the transition
+        // can be smoother
+        // Once you do this, consider constructing a method that makes the
+        // words appear one at a time. This method is more likely to engage
+        // the user but it will also clean up your code.
+
 
     }
 
@@ -20,10 +27,11 @@ public class GuessAWord {
     //mainMenu either calls the instructions() method or ends the program
     private static void mainMenu() {
 
-        System.out.println("\nMain Menu");
-        System.out.println("----------");
+        String mainMenu = "\nMain Menu";
+        System.out.println(mainMenu);
+        GameDisplay.printBorder(mainMenu.length());
 
-        int userSelection = UI.readInt("Welcome to 'Guess That Word'.\nWould you like to ...\n\n" +
+        int userSelection = UI.readInt("\nWelcome to 'Guess That Word'.\nWould you like to ...\n\n" +
                 "1) Play\n" +
                 "2) Exit\n" , 1, 2 );
 
@@ -34,8 +42,11 @@ public class GuessAWord {
                 break;
 
             case 2:
+                GameDisplay.printBorder(100);
+                wait(1);
                 System.out.println("Closing down the program ...");
                 wait(2);
+                GameDisplay.printBorder(100);
                 System.exit(0);
 
         }
@@ -81,36 +92,41 @@ public class GuessAWord {
 
         String word = getWord();
 
-        GameDisplay.printBorder();
+        GameDisplay.printBorder(100);
 
-        wait(1);
+        //wait(1);
         System.out.println("\nExcellent. At the beginning of the game the word you are tasked\n" +
                 "with guessing will appear as a series of dashes. Each dash will\n" +
                 "correspond to one letter.\n");
         wait(8);
         System.out.println("\nFor example, if the secret word is 'Apple' you will see\n\n");
-        wait(3);
+        wait(4);
         System.out.println("_ _ _ _ _\n\n");
-        wait(3);
-        System.out.println("at the beginning of the game");
-        wait(3);
+        wait(1);
+        System.out.println("at the beginning of the game.\n");
+        wait(2);
+        GameDisplay.printBorder(100);
 
-        System.out.println("If you then select 'p' as your first letter, you will see\n\n");
-        wait(3);
+        wait(2);
+        System.out.println("\nIf you then select 'p' as your first letter, you will see\n\n");
+        wait(4);
         System.out.println("_ p p _ _\n\n");
-        wait(3);
-        System.out.println("on your screen.\n");
+        wait(2);
+        System.out.println("on your screen.");
+        wait(1);
+        GameDisplay.printBorder(100);
+        System.out.println("\nLet's begin!");
 
+
+        wait(1);
+        GameDisplay.printBorder(100);
+        wait(2);
+
+        System.out.println("\nLoading game ... ");
+        wait(2);
+        GameDisplay.printBorder(100);
 
         wait(2);
-        GameDisplay.printBorder();
-        wait(2);
-
-        System.out.println("\n\nLoading game ... \n");
-        wait(2);
-        GameDisplay.printBorder();
-
-        wait(5);
 
         game(word);
     }
@@ -163,14 +179,18 @@ public class GuessAWord {
         //to win the game
         while ( correctGuesses < minimalNumberOfGuesses) {
 
+            //Checks if the current character being processed was already typed
+            //in by the user. If so, it reprompts the user to type in another
+            //letter
+             if (Letter.wasCharPreviouslyGuessed(letterGuessed)){
 
-            //YOU WANT TO BUILD A FEATURE THAT TAKES INTO ACCOUNT IF A
-            //LETTER HAS ALREADY BEEN GUESSED ... YOU COULD PROBABLY DO THIS
-            //BY MAKING AN ARRAY FIELD IN THE LETTER CLASS AND HAVING EACH
-            //LETTER OBJECT POPULATE THAT ARRAY WHEN IT'S BOOLEAN isDISPLAYED
-            //IS REASSIGNED A TRUE VALUE
+                 System.out.println("It seems you have already typed in " + letterGuessed + ".");
+                 letterGuessed = UI.confirmAlphabeticChar("Please pick another letter: ");
+                 continue;
+             }
 
-            //Iterates through each object in letters
+            //Iterates through each object in letters, comparing the
+            //user input with each object's 'letter' field
             for (int letter = 0; letter < letters.size(); letter++){
 
                 if (letterGuessed == letters.get(letter).getValue()) {
@@ -183,9 +203,13 @@ public class GuessAWord {
             //Sequence for an incorrect guess
             if (letterFrequency == 0) {
 
-                System.out.println("\nSorry, the letter '" + letterGuessed + "' was not found.\n");
+                System.out.print("\nSorry, the letter '" + letterGuessed + "' was not found.\n\n");
+                Letter.alreadyGuessed.add(letterGuessed);
                 GameDisplay.currentState(letters, false);
-                letterGuessed = UI.confirmAlphabeticChar("Pick again: ");
+
+
+
+                letterGuessed = UI.confirmAlphabeticChar("Please try again: ");
                 continue;
 
             }
@@ -197,6 +221,7 @@ public class GuessAWord {
                 correctGuesses = correctGuesses + (letterFrequency - (letterFrequency -1));
                 System.out.println("\nCongratulations, the letter " + letterGuessed + " was found.\n");
                 System.out.println("'" + letterGuessed + "'" + " appears more than once");
+                Letter.alreadyGuessed.add(letterGuessed);
             } else {
                 correctGuesses++;
             }

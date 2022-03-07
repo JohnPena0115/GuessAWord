@@ -70,11 +70,12 @@ public class GameDisplay {
     }
 
     //Delineates one frame from the next
-    public static void printBorder(){
+    public static void printBorder(int dashes){
 
-        int dashes = 100;
+        if (dashes == 100){
+            System.out.println("");
+        }
 
-        System.out.println("");
 
         while(dashes > 0) {
             System.out.print("-");
