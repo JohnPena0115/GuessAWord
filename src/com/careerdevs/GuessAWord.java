@@ -154,6 +154,8 @@ public class GuessAWord {
         //Populates the letters arraylist and the uniqueLetters hashset
         for(int index = 0; index < selectedWord.length(); index++) {
 
+            //ArrayList populated by Letter class object
+            //HashSet populated by field of Letter class object
             Letter hiddenLetter = new Letter(selectedWord.charAt(index));
             letters.add(hiddenLetter);
 
@@ -171,6 +173,8 @@ public class GuessAWord {
         //If a non-alphabetic char is typed, reprompts user for an alphabetic char
         char letterGuessed = UI.confirmAlphabeticChar("\nPick your first letter: ");
 
+       // GameDisplay.printBorder(100);
+
         int correctGuesses = 0;
         int letterFrequency = 0;
 
@@ -184,7 +188,9 @@ public class GuessAWord {
             //letter
              if (Letter.wasCharPreviouslyGuessed(letterGuessed)){
 
-                 System.out.println("It seems you have already typed in " + letterGuessed + ".");
+                 GameDisplay.printBorder(100);
+                 System.out.println("It seems you have already typed in the letter '" + Character.toUpperCase(letterGuessed) + "'.");
+                 GameDisplay.currentState(letters, false);
                  letterGuessed = UI.confirmAlphabeticChar("Please pick another letter: ");
                  continue;
              }
@@ -203,13 +209,11 @@ public class GuessAWord {
             //Sequence for an incorrect guess
             if (letterFrequency == 0) {
 
+                GameDisplay.printBorder(100);
                 System.out.print("\nSorry, the letter '" + letterGuessed + "' was not found.\n\n");
                 Letter.alreadyGuessed.add(letterGuessed);
                 GameDisplay.currentState(letters, false);
-
-
-
-                letterGuessed = UI.confirmAlphabeticChar("Please try again: ");
+                letterGuessed = UI.confirmAlphabeticChar("Pick again. Let's get a streak going: ");
                 continue;
 
             }
@@ -219,10 +223,15 @@ public class GuessAWord {
             //correctGuesses is only incremented by one.
             if (letterFrequency > 1) {
                 correctGuesses = correctGuesses + (letterFrequency - (letterFrequency -1));
+                GameDisplay.printBorder(100);
                 System.out.println("\nCongratulations, the letter " + letterGuessed + " was found.\n");
                 System.out.println("'" + letterGuessed + "'" + " appears more than once");
                 Letter.alreadyGuessed.add(letterGuessed);
+
             } else {
+
+                GameDisplay.printBorder(100);
+                System.out.println("\nCongratulations, '" + Character.toUpperCase(letterGuessed) + "' was found") ;
                 correctGuesses++;
             }
 
@@ -233,10 +242,13 @@ public class GuessAWord {
             System.out.println("\nUnveiling " + Character.toUpperCase(letterGuessed) + " ...\n");
             wait(2);
             GameDisplay.currentState(letters, true);
-            letterGuessed = UI.confirmAlphabeticChar("Pick again: ");
+            letterGuessed = UI.confirmAlphabeticChar("Pick again. Keep the streak alive: ");
 
 
         }
+
+        System.out.println("Congratulations, you have unveiled " + selectedWord + ".");
+        System.exit(0);
     }
 
 }

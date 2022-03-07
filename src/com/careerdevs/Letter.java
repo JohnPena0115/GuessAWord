@@ -53,8 +53,4 @@ public class Letter {
         alreadyGuessed.add(correctlyGuessed.getValue());
 
     }
-
-
-
-
 }

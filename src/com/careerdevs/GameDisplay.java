@@ -6,7 +6,6 @@ public class GameDisplay {
 
     public static void initialFrame(ArrayList<Letter> hiddenLetters, int uniqueLetters) {
 
-       // printBorder();
         System.out.println("\nWelcome, the word you are tasked with guessing will appear shortly.\n");
         GuessAWord.wait(3);
         System.out.println("It has a total of " + hiddenLetters.size() + " letters, " +
@@ -22,13 +21,6 @@ public class GameDisplay {
             GuessAWord.wait(1);
 
         }
-        //printBorder();
-    }
-
-    //Figure out if you are going to use this ... *******
-    public static void subsequentFrames(ArrayList<Letter> letterObjects) {
-
-
     }
 
 
