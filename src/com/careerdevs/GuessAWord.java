@@ -12,15 +12,6 @@ public class GuessAWord {
 
       mainMenu();
 
-      //Consider renaming GameDisplay "Display Utilities" ...
-        // wait() implemented in seconds seems really jittery
-        // try to implement it in milliseconds to see if the transition
-        // can be smoother
-        // Once you do this, consider constructing a method that makes the
-        // words appear one at a time. This method is more likely to engage
-        // the user but it will also clean up your code.
-
-
     }
 
 
@@ -53,13 +44,6 @@ public class GuessAWord {
     }
 
     //Randomly selects and returns a word from wordList Array
-    //Remember, eventually you want to have a wordBank array from which *****
-    //wordList is derived ... this will come into play when the user *****
-    //can replay the game *****
-
-    //Consider putting getWord() in the GameDisplay class ... or maybe even *****
-    //create a class for word retrieval ... once you introduce the 3 other *****
-    //word banks it's going to muddy up GuessAWord ... *****
     private static String getWord() {
 
         String[] wordList = new String[14];
@@ -86,8 +70,6 @@ public class GuessAWord {
 
     //Introduces user to game layout
     //Calls game(word) to start the game
-    //When you introduce "Easy", "Java" and "Hard" instructions will *****
-    //get pushed back a step *****
     private static void instructions() {
 
         String word = getWord();
